@@ -4,38 +4,36 @@ import ReactDOM from 'react-dom'
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas' }, { name: 'Ada Lovelace'}
   ]) 
   const [ newName, setNewName ] = useState('')
 
-  const addNote = (event) => {
+  const addName = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target)
     setPersons(persons.concat({name: newName}))
-    console.log(persons)
+    //console.log(persons)
     setNewName('')
   }
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
   }
+  const showNames = () =>
+    persons.map(persons => <div key = {persons.name}> {persons.name} </div>)
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
         <div>
-          name: <form onSubmit={addNote}>
-          <input value={newName}
-                 onChange={handleNameChange}
-          />
-        <button type="submit">save</button>
-      </form>  
+          <form onSubmit={addName}> name: 
+            <input value={newName} onChange={handleNameChange}/>
+            <button type="submit">add</button>
+          </form>
+          
         </div>
-        <div>debug: {newName}</div>
-      </form>
       <h2>Numbers</h2>
-      {persons}
+      {showNames()}
     </div>
   )
 }
